@@ -74,14 +74,12 @@ namespace Revit.Elements
             // Changing the underlying curve requires destroying the Grid
             TransactionManager.Instance.EnsureInTransaction(Document);
             
-
-
             Autodesk.Revit.DB.GlobalParameter g = Autodesk.Revit.DB.GlobalParameter.Create(Document, name, type);
             InternalSetGlobalParameter(g);
 
             TransactionManager.Instance.TransactionTaskDone();
 
-            ElementBinder.CleanupAndSetElementForTrace(Document, this.InternalElement);
+            ElementBinder.SetElementForTrace(this.InternalElement);
         }
 
 
@@ -162,7 +160,7 @@ namespace Revit.Elements
         {
             if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
             {
-                throw new Exception("");
+                throw new Exception(Properties.Resources.DocumentDoesNotSupportGlobalParams);
             }
 
             return new GlobalParameter(name, type);
