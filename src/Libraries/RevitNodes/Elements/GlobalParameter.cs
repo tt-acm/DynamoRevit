@@ -10,7 +10,7 @@ using RevitServices.Transactions;
 namespace Revit.Elements
 {
     /// <summary>
-    /// A Revit Grid Element
+    /// Revit Global Parameters
     /// </summary>
     [RegisterForTrace]
     public class GlobalParameter : Element
@@ -28,7 +28,7 @@ namespace Revit.Elements
         /// <summary>
         /// Reference to the Element
         /// </summary>
-        public override Autodesk.Revit.DB.GlobalParameter InternalElement
+        public override Autodesk.Revit.DB.Element InternalElement
         {
             get { return InternalGlobalParameter; }
         }
@@ -46,6 +46,11 @@ namespace Revit.Elements
             SafeInit(() => InitGlobalParameter(parameter));
         }
 
+        /// <summary>
+        /// GlobalParameter
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
         private GlobalParameter(string name, Autodesk.Revit.DB.ParameterType type)
         {
             SafeInit(() => InitGlobalParameter(name, type));
@@ -57,7 +62,7 @@ namespace Revit.Elements
         #region Helpers for private constructors
 
         /// <summary>
-        /// Initialize a Grid element
+        /// Initialize a GlobalParameter element
         /// </summary>
         /// <param name="grid"></param>
         private void InitGlobalParameter(Autodesk.Revit.DB.GlobalParameter g)
@@ -66,15 +71,15 @@ namespace Revit.Elements
         }
 
         /// <summary>
-        /// Initialize a Grid element
+        /// Initialize a GlobalParameter element
         /// </summary>
         /// <param name="line"></param>
         private void InitGlobalParameter(string name, Autodesk.Revit.DB.ParameterType type)
         {
-            // Changing the underlying curve requires destroying the Grid
             TransactionManager.Instance.EnsureInTransaction(Document);
             
             Autodesk.Revit.DB.GlobalParameter g = Autodesk.Revit.DB.GlobalParameter.Create(Document, name, type);
+
             InternalSetGlobalParameter(g);
 
             TransactionManager.Instance.TransactionTaskDone();
