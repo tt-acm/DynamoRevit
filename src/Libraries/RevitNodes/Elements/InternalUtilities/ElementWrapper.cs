@@ -212,6 +212,11 @@ namespace Revit.Elements
            return Mullion.FromExisting(ele, isRevitOwned);
         }
 
+        public static GlobalParameter Wrap(Autodesk.Revit.DB.GlobalParameter ele, bool isRevitOwned)
+        {
+            return GlobalParameter.FromExisting(ele, isRevitOwned);
+        }
+
         #endregion
 
     }

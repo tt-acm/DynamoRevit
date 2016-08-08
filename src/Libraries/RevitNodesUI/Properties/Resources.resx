@@ -282,4 +282,16 @@
   <data name="NoFamilyInstancesInDividedSurfaceWarning" xml:space="preserve">
     <value>No family instances found in the divided surface.</value>
   </data>
+  <data name="NoActiveDocumentFound" xml:space="preserve">
+    <value>No active Revit document found.</value>
+    <comment>Description for missing document</comment>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+    <comment>Description for null value</comment>
+  </data>
+  <data name="NoTypesFound" xml:space="preserve">
+    <value>No types found.</value>
+    <comment>Description for missing types</comment>
+  </data>
 </root>

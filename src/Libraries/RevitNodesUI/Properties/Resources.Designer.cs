@@ -178,6 +178,15 @@ namespace DSRevitNodesUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No active Revit document found..
+        /// </summary>
+        internal static string NoActiveDocumentFound {
+            get {
+                return ResourceManager.GetString("NoActiveDocumentFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No family instances found in the divided surface..
         /// </summary>
         internal static string NoFamilyInstancesInDividedSurfaceWarning {
@@ -192,6 +201,24 @@ namespace DSRevitNodesUI.Properties {
         internal static string NoFloorTypesAvailable {
             get {
                 return ResourceManager.GetString("NoFloorTypesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No types found..
+        /// </summary>
+        internal static string NoTypesFound {
+            get {
+                return ResourceManager.GetString("NoTypesFound", resourceCulture);
             }
         }
         
@@ -466,7 +493,7 @@ namespace DSRevitNodesUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All floor types available in the document..
+        ///   Looks up a localized string similar to All wall types available in the document..
         /// </summary>
         internal static string WallTypesDescription {
             get {
