@@ -315,4 +315,7 @@
   <data name="CurtainSystemTypeNotFound" xml:space="preserve">
     <value>Curtain System Type not found.</value>
   </data>
+  <data name="InvalidShapeEditor" xml:space="preserve">
+    <value>Floor Shape cannot be edited.</value>
+  </data>
 </root>
