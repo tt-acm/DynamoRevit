@@ -417,6 +417,14 @@ namespace Revit.Properties {
         internal static string InvalidShapeEditor {
             get {
                 return ResourceManager.GetString("InvalidShapeEditor", resourceCulture);
+		}
+	}
+        
+	///   Looks up a localized string similar to The selected face cannot be used to create a wall. Please use a mass face instead..
+        /// </summary>
+        internal static string InvalidFace {
+            get {
+                return ResourceManager.GetString("InvalidFace", resourceCulture);
             }
         }
         

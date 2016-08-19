@@ -102,7 +102,7 @@ namespace Revit.Elements
 
             if (RoofType == null)
             {
-                throw new Exception(Properties.Resources.RoofTypeNotFound);
+                throw new Exception("Properties.Resources.RoofTypeNotFound");
             }
 
             // until there is a way to create a RoofType from Dynamo, 
