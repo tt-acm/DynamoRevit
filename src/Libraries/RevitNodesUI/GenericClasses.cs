@@ -170,13 +170,16 @@ namespace DSRevitNodesUI
                     PopulateItems();
                 }
             }
-            
 
-           var node = AstFactory.BuildFunctionCall("Revit.Elements.ParseEnum", "ByString",
-                new List<AssociativeNode> { AstFactory.BuildStringNode((string)Items[SelectedIndex].Name), AstFactory.BuildStringNode(this.EnumerationType.FullName) });
+            // get the selected items name
+            var stringNode = AstFactory.BuildStringNode((string)Items[SelectedIndex].Name);
 
-            // Return the selected element
-            return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), node) };
+            // assign the selected name to an actual enumeration value
+            var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), stringNode);
+
+            // return the enumeration value
+            return new List<AssociativeNode> { assign };
+
         }
     }
 }
