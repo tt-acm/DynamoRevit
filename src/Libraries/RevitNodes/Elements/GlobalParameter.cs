@@ -142,7 +142,7 @@ namespace Revit.Elements
         /// Get all Global Parameters
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<GlobalParameter> GlobalParameters()
+        public static IEnumerable<GlobalParameter> GetAllGlobalParameters()
         {
             if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
             {
