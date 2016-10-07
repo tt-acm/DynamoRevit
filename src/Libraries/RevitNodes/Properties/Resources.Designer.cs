@@ -282,9 +282,9 @@ namespace Revit.Properties {
         internal static string DynamoSurfaceToRevitBRepFailure {
             get {
                 return ResourceManager.GetString("DynamoSurfaceToRevitBRepFailure", resourceCulture);
-		}
-	}
-
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Element cannot be annotated.
         /// </summary>
@@ -552,6 +552,15 @@ namespace Revit.Properties {
         internal static string MultipleSurfacesIntroducedAfterConversion {
             get {
                 return ResourceManager.GetString("MultipleSurfacesIntroducedAfterConversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is already in use..
+        /// </summary>
+        internal static string NameAlreadyInUse {
+            get {
+                return ResourceManager.GetString("NameAlreadyInUse", resourceCulture);
             }
         }
         

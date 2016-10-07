@@ -1,7 +1,7 @@
 ﻿using System;
 
 using DynamoServices;
-
+using System.Collections.Generic;
 using Revit.GeometryConversion;
 using Revit.GeometryReferences;
 using RevitServices.Persistence;
@@ -76,15 +76,20 @@ namespace Revit.Elements
         /// <param name="line"></param>
         private void InitGlobalParameter(string name, Autodesk.Revit.DB.ParameterType type)
         {
-            TransactionManager.Instance.EnsureInTransaction(Document);
-            
-            Autodesk.Revit.DB.GlobalParameter g = Autodesk.Revit.DB.GlobalParameter.Create(Document, name, type);
+            if (Autodesk.Revit.DB.GlobalParametersManager.IsUniqueName(Document, name))
+            {
+                TransactionManager.Instance.EnsureInTransaction(Document);
 
-            InternalSetGlobalParameter(g);
+                Autodesk.Revit.DB.GlobalParameter g = Autodesk.Revit.DB.GlobalParameter.Create(Document, name, type);
 
-            TransactionManager.Instance.TransactionTaskDone();
+                InternalSetGlobalParameter(g);
 
-            ElementBinder.SetElementForTrace(this.InternalElement);
+                TransactionManager.Instance.TransactionTaskDone();
+
+                ElementBinder.SetElementForTrace(this.InternalElement);
+            }
+            else
+                throw new Exception(Properties.Resources.NameAlreadyInUse);
         }
 
 
@@ -106,6 +111,57 @@ namespace Revit.Elements
         #endregion
 
         #region Public properties
+
+        /// <summary>
+        /// Find Global Parameter by Name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public GlobalParameter FindByName(string name)
+        {
+            if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
+            {
+                throw new Exception(Properties.Resources.DocumentDoesNotSupportGlobalParams);
+            }
+
+            var id = Autodesk.Revit.DB.GlobalParametersManager.FindByName(Document, name);
+
+            if (id != null && id != Autodesk.Revit.DB.ElementId.InvalidElementId)
+            {
+                if (Autodesk.Revit.DB.GlobalParametersManager.IsValidGlobalParameter(Document, id))
+                {
+                    var global = Document.GetElement(id) as Autodesk.Revit.DB.GlobalParameter;
+                    return GlobalParameter.FromExisting(global, true);
+                }
+            }
+            
+            return null;
+        }
+
+        /// <summary>
+        /// Get all Global Parameters
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<GlobalParameter> GlobalParameters()
+        {
+            if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
+            {
+                throw new Exception(Properties.Resources.DocumentDoesNotSupportGlobalParams);
+            }
+
+            var ids = Autodesk.Revit.DB.GlobalParametersManager.GetGlobalParametersOrdered(Document);
+
+            List<GlobalParameter> parameters = new List<GlobalParameter>();
+
+            foreach (Autodesk.Revit.DB.ElementId id in ids)
+            {
+                var global = Document.GetElement(id) as Autodesk.Revit.DB.GlobalParameter;
+                parameters.Add(GlobalParameter.FromExisting(global, true));
+            }
+
+            return parameters;
+        }
+
 
         /// <summary>
         /// Get Name
@@ -161,14 +217,18 @@ namespace Revit.Elements
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GlobalParameter ByName(string name, Autodesk.Revit.DB.ParameterType type)
+        public static GlobalParameter ByName(string name, string type)
         {
+            Autodesk.Revit.DB.ParameterType ptype = Autodesk.Revit.DB.ParameterType.Text;
+            if (!Enum.TryParse<Autodesk.Revit.DB.ParameterType>(type, out ptype))
+                ptype = Autodesk.Revit.DB.ParameterType.Text;
+
             if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
             {
                 throw new Exception(Properties.Resources.DocumentDoesNotSupportGlobalParams);
             }
 
-            return new GlobalParameter(name, type);
+            return new GlobalParameter(name, ptype);
         }
 
         #endregion
