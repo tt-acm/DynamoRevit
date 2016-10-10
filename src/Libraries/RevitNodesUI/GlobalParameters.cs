@@ -28,12 +28,4 @@ namespace DSRevitNodesUI
         public GlobalParameters() : base("Global Parameters", typeof(Autodesk.Revit.DB.GlobalParameter)) { }
     }
 
-    [NodeName("Parameter Type")]
-    [NodeCategory("Revit.Elements")]
-    [NodeDescription("Parameter Type Selector")]
-    [IsDesignScriptCompatible]
-    public class ParameterType : CustomGenericEnumerationDropDown
-    {
-        public ParameterType() : base("Parameter Type", typeof(Autodesk.Revit.DB.ParameterType)) { }
-    }
 }

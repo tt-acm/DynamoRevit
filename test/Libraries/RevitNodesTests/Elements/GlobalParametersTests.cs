@@ -27,14 +27,38 @@ namespace RevitNodesTests.Elements
     {
         [Test]
         [TestModel(@".\empty-2017.rvt")]
-        public void SetGlobalParameterByName()
+        public void SetAndGetGlobalParameterByName()
         {
-            var gp = Revit.Elements.GlobalParameter.ByName("MyGlobal", ParameterType.Text);
+            
+            var gp = Revit.Elements.GlobalParameter.ByName("MyGlobal", "Text");
             Assert.IsNotNull(gp);
             Assert.IsTrue(typeof(Revit.Elements.GlobalParameter) == gp.GetType());
             Assert.IsTrue("MyGlobal" == gp.Name);
             Assert.IsTrue("Text" == gp.ParameterType);
-            
+            Assert.IsTrue(true == gp.Visible);
+
+            var param = Revit.Elements.GlobalParameter.FindByName("MyGlobal");
+            Assert.NotNull(param);
+        }
+
+        [Test]
+        [TestModel(@".\empty-2017.rvt")]
+        public void GetAllGlobalParameters()
+        {
+            var gp1 = Revit.Elements.GlobalParameter.ByName("MyGlobal1", "Text");
+            Assert.IsNotNull(gp1);
+
+            var gps = Revit.Elements.GlobalParameter.GetAllGlobalParameters();
+            Assert.IsNotNull(gps);
+
+            bool found = false;
+
+            foreach (var gp in gps)
+            {
+                if (gp.Name == "MyGlobal1") found = true;
+            }
+
+            Assert.IsTrue(found);
         }
 
 

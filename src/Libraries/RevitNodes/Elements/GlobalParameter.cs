@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Autodesk.DesignScript.Runtime;
 using DynamoServices;
 using System.Collections.Generic;
 using Revit.GeometryConversion;
@@ -28,6 +28,7 @@ namespace Revit.Elements
         /// <summary>
         /// Reference to the Element
         /// </summary>
+        [SupressImportIntoVM]
         public override Autodesk.Revit.DB.Element InternalElement
         {
             get { return InternalGlobalParameter; }
@@ -117,7 +118,7 @@ namespace Revit.Elements
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public GlobalParameter FindByName(string name)
+        public static GlobalParameter FindByName(string name)
         {
             if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
             {
@@ -213,14 +214,15 @@ namespace Revit.Elements
         #region Public static constructors
 
         /// <summary>
-        /// Create a Revit Grid Element in a Project along a Line.  
+        /// Create a new Global Parameter by Name and Type
         /// </summary>
-        /// <param name="line"></param>
+        /// <param name="name">Name fo the parameter</param>
+        /// <param name="parameterType">Parameter type</param>
         /// <returns></returns>
-        public static GlobalParameter ByName(string name, string type)
+        public static GlobalParameter ByName(string name, string parameterType)
         {
             Autodesk.Revit.DB.ParameterType ptype = Autodesk.Revit.DB.ParameterType.Text;
-            if (!Enum.TryParse<Autodesk.Revit.DB.ParameterType>(type, out ptype))
+            if (!Enum.TryParse<Autodesk.Revit.DB.ParameterType>(parameterType, out ptype))
                 ptype = Autodesk.Revit.DB.ParameterType.Text;
 
             if (!Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Document))
