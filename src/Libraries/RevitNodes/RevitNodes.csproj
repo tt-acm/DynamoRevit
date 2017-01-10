@@ -101,6 +101,7 @@
     <Compile Include="Elements\RevisionCloud.cs" />
     <Compile Include="Elements\SunSettings.cs" />
     <Compile Include="Elements\Tag.cs" />
+    <Compile Include="Elements\PreviewElement.cs" />
     <Compile Include="Elements\TextElement.cs" />
     <Compile Include="Elements\TextNote.cs" />
     <Compile Include="Elements\TextNoteType.cs" />
